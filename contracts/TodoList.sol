@@ -54,8 +54,13 @@ contract TodoList {
 
     function removeTask(uint32 _id) external {
         UserTasks storage userTaskList = userTasks[msg.sender];
-        require(_id <= userTaskList.taskCount, "Task does not exist");
-        delete userTaskList.tasks[_id];
+        require(_id < userTaskList.taskCount, "Task does not exist");
+        if (_id != userTaskList.taskCount - 1) {
+            // Move the last task to the position of the task to be deleted
+            userTaskList.tasks[_id] = userTaskList.tasks[userTaskList.taskCount - 1];
+            userTaskList.tasks[_id].id = _id; // Update the id of the moved task
+        }
+        delete userTaskList.tasks[userTaskList.taskCount - 1];
         userTaskList.taskCount--;
         emit TaskRemoved(msg.sender, _id);
     }

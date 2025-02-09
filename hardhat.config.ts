@@ -2,7 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import { vars } from "hardhat/config";
 
-const PRIVATE_KEY = vars.get("SEPOLIA_PRIVATE_KEY");
+const PRIVATE_KEY = vars.get("PRIVATE_KEY");
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
